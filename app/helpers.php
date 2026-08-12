@@ -47,9 +47,12 @@ function product_image(string $sku): string
 {
     $prefixes = [
         'KAS-' => 'kaspersky.webp', 'FTG-' => 'fortigate.webp',
-        'M365-' => 'microsoft.webp', 'RDS-' => 'microsoft.webp',
+        'M365-' => 'microsoft.webp', 'MS-' => 'microsoft.webp',
+        'WIN11-' => 'microsoft.webp', 'WS-' => 'windows-server.webp', 'RDS-' => 'windows-server.webp',
         'VEEAM-' => 'veeam.webp', 'ACR-' => 'acronis.webp',
         'AXC-' => 'axcient.webp', 'SAGE' => 'sage.webp',
+        'SOP-' => 'sophos.webp', 'BIT-' => 'bitdefender.webp',
+        'NAKIVO-' => 'veeam.webp',
     ];
     foreach ($prefixes as $prefix => $file) {
         if (str_starts_with(strtoupper($sku), $prefix)) return 'assets/images/products/' . $file;

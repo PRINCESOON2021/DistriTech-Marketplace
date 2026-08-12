@@ -26,15 +26,15 @@ require __DIR__ . '/partials/header.php';
 
 <section class="proof-strip reveal"><div><strong>360°</strong><span>Protection globale</span></div><div><strong>9</strong><span>Catégories IT</span></div><div><strong>24/7</strong><span>Monitoring disponible</span></div><div><strong>Maroc</strong><span>Accompagnement local</span></div></section>
 
-<section class="section reveal" id="solutions">
+<section class="section solutions-showcase reveal" id="solutions">
     <div class="section-heading"><div><span class="eyebrow">NOS SOLUTIONS</span><h2>L’essentiel pour votre système d’information.</h2></div><p>Découvrez brièvement chaque expertise, puis consultez les produits correspondants.</p></div>
     <div class="home-solution-grid">
-        <article><span>01</span><h3>Cybersécurité</h3><p>Antivirus, EDR et protection avancée contre les menaces et ransomwares.</p><div><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Liste des produits</a></div></article>
-        <article><span>02</span><h3>Firewall & réseau</h3><p>Sécurisez les accès, les sites distants et les échanges de votre entreprise.</p><div><a href="<?= e(url('products.php?category=firewall')) ?>">Liste des produits</a></div></article>
-        <article><span>03</span><h3>Microsoft & Cloud</h3><p>Microsoft 365, Windows, serveurs et services cloud pour vos équipes.</p><div><a href="<?= e(url('products.php?category=microsoft')) ?>">Liste des produits</a></div></article>
-        <article><span>04</span><h3>Backup & PRA</h3><p>Sauvegarde, réplication et reprise rapide après incident informatique.</p><div><a href="<?= e(url('products.php?category=backup')) ?>">Liste des produits</a></div></article>
-        <article><span>05</span><h3>Gestion Sage</h3><p>Solutions de comptabilité, gestion commerciale et pilotage d’entreprise.</p><div><a href="<?= e(url('products.php?category=sage')) ?>">Liste des produits</a></div></article>
-        <article><span>06</span><h3>Services managés</h3><p>Audit, déploiement, supervision, maintenance et support informatique.</p><div><a href="<?= e(url('products.php')) ?>">Liste des produits</a></div></article>
+        <article><span class="solution-mark"><b>01</b>◆</span><h3>Cybersécurité</h3><p>Antivirus, EDR et protection avancée contre les menaces et ransomwares.</p><div><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Liste des produits <i>→</i></a></div></article>
+        <article><span class="solution-mark"><b>02</b>⌁</span><h3>Firewall & réseau</h3><p>Sécurisez les accès, les sites distants et les échanges de votre entreprise.</p><div><a href="<?= e(url('products.php?category=firewall')) ?>">Liste des produits <i>→</i></a></div></article>
+        <article><span class="solution-mark"><b>03</b>☁</span><h3>Microsoft & Cloud</h3><p>Microsoft 365, Windows, serveurs et services cloud pour vos équipes.</p><div><a href="<?= e(url('products.php?category=microsoft')) ?>">Liste des produits <i>→</i></a></div></article>
+        <article><span class="solution-mark"><b>04</b>↻</span><h3>Backup & PRA</h3><p>Sauvegarde, réplication et reprise rapide après incident informatique.</p><div><a href="<?= e(url('products.php?category=backup')) ?>">Liste des produits <i>→</i></a></div></article>
+        <article><span class="solution-mark"><b>05</b>▦</span><h3>Gestion Sage</h3><p>Solutions de comptabilité, gestion commerciale et pilotage d’entreprise.</p><div><a href="<?= e(url('products.php?category=sage')) ?>">Liste des produits <i>→</i></a></div></article>
+        <article><span class="solution-mark"><b>06</b>✦</span><h3>Services managés</h3><p>Audit, déploiement, supervision, maintenance et support informatique.</p><div><a href="<?= e(url('products.php')) ?>">Liste des produits <i>→</i></a></div></article>
     </div>
 </section>
 

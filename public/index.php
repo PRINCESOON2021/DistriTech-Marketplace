@@ -23,7 +23,7 @@ require __DIR__ . '/partials/header.php';
         <div class="trust"><span>Conseil expert</span><span>Déploiement professionnel</span><span>Support local</span></div>
     </div>
     <div class="hero-art" aria-hidden="true">
-        <img src="<?= e(url('assets/images/hero-cybersecurity.webp')) ?>" alt="" fetchpriority="high">
+        <img src="<?= e(url('assets/images/hero-datacenter-real.webp')) ?>" alt="Datacenter professionnel avec rangées de serveurs" fetchpriority="high">
         <div class="floating-card card-security"><span class="pulse-dot"></span><div><b>Protection active</b><small>Infrastructure surveillée</small></div></div>
         <div class="floating-card card-backup"><span>↻</span><div><b>Backup vérifié</b><small>Copie hors site sécurisée</small></div></div>
     </div>

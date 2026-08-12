@@ -19,12 +19,12 @@
         <div class="nav-group">
             <button type="button">Produits ▾</button>
             <div class="mega-menu">
-                <a href="<?= e(url('index.php?category=cybersecurite#catalogue')) ?>"><b>Cybersécurité</b><span>Endpoint, EDR et protection</span></a>
-                <a href="<?= e(url('index.php?category=firewall#catalogue')) ?>"><b>Firewall</b><span>FortiGate et sécurité réseau</span></a>
-                <a href="<?= e(url('index.php?category=microsoft#catalogue')) ?>"><b>Microsoft</b><span>Microsoft 365, Server et CAL</span></a>
-                <a href="<?= e(url('index.php?category=backup#catalogue')) ?>"><b>Backup</b><span>Veeam, Acronis et Axcient</span></a>
-                <a href="<?= e(url('index.php?category=sage#catalogue')) ?>"><b>Sage</b><span>Comptabilité et gestion</span></a>
-                <a href="<?= e(url('index.php#catalogue')) ?>"><b>Tout le catalogue</b><span>Voir toutes les solutions</span></a>
+                <a href="<?= e(url('products.php?category=cybersecurite')) ?>"><b>Cybersécurité</b><span>Endpoint, EDR et protection</span></a>
+                <a href="<?= e(url('products.php?category=firewall')) ?>"><b>Firewall</b><span>FortiGate et sécurité réseau</span></a>
+                <a href="<?= e(url('products.php?category=microsoft')) ?>"><b>Microsoft</b><span>Microsoft 365, Server et CAL</span></a>
+                <a href="<?= e(url('products.php?category=backup')) ?>"><b>Backup</b><span>Veeam, Acronis et Axcient</span></a>
+                <a href="<?= e(url('products.php?category=sage')) ?>"><b>Sage</b><span>Comptabilité et gestion</span></a>
+                <a href="<?= e(url('products.php')) ?>"><b>Tout le catalogue</b><span>Voir toutes les solutions</span></a>
             </div>
         </div>
         <a href="<?= e(url('index.php#solutions')) ?>">Solutions</a>

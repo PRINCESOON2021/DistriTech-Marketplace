@@ -12,7 +12,7 @@ if ($product === null) {
     http_response_code(404);
     $pageTitle = 'Produit introuvable';
     require __DIR__ . '/partials/header.php';
-    echo '<section class="section empty-state"><h1>Produit introuvable</h1><a class="button primary" href="' . e(url('index.php#catalogue')) . '">Retour au catalogue</a></section>';
+    echo '<section class="section empty-state"><h1>Produit introuvable</h1><a class="button primary" href="' . e(url('products.php')) . '">Retour au catalogue</a></section>';
     require __DIR__ . '/partials/footer.php';
     exit;
 }
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $pageTitle = $product['name'];
 require __DIR__ . '/partials/header.php';
 ?>
-<section class="breadcrumb"><a href="<?= e(url('index.php')) ?>">Accueil</a><span>/</span><a href="<?= e(url('index.php?category=' . $product['category_slug'] . '#catalogue')) ?>"><?= e($product['category_name']) ?></a><span>/</span><?= e($product['name']) ?></section>
+<section class="breadcrumb"><a href="<?= e(url('index.php')) ?>">Accueil</a><span>/</span><a href="<?= e(url('products.php?category=' . $product['category_slug'])) ?>"><?= e($product['category_name']) ?></a><span>/</span><?= e($product['name']) ?></section>
 <section class="product-detail">
     <div class="product-visual product-photo"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>"><small><?= e($product['brand']) ?></small></div>
     <div class="product-info"><span class="category-pill"><?= e($product['category_name']) ?></span><h1><?= e($product['name']) ?></h1><p class="lead"><?= e($product['short_description']) ?></p><div class="price-block"><small>Prix indicatif</small><strong><?= e(money($product['sale_price'] === null ? null : (float) $product['sale_price'])) ?></strong><span><?= e($product['unit']) ?></span></div>

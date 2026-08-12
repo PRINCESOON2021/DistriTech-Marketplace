@@ -3,14 +3,7 @@
 declare(strict_types=1);
 session_start();
 require dirname(__DIR__) . '/app/Database.php';
-require dirname(__DIR__) . '/app/ProductRepository.php';
 require dirname(__DIR__) . '/app/helpers.php';
-
-$repository = new ProductRepository();
-$search = trim((string) ($_GET['q'] ?? ''));
-$category = trim((string) ($_GET['category'] ?? ''));
-$products = $repository->all($search, $category);
-$categories = $repository->categories();
 $pageTitle = 'Solutions IT, cybersécurité et cloud';
 require __DIR__ . '/partials/header.php';
 ?>
@@ -19,7 +12,7 @@ require __DIR__ . '/partials/header.php';
         <span class="eyebrow">INTÉGRATEUR IT B2B • MAROC</span>
         <h1>Sécurisez, connectez et développez votre entreprise.</h1>
         <p>Licences, infrastructures, cybersécurité, cloud et services managés réunis avec un accompagnement de bout en bout.</p>
-        <div class="actions"><a class="button primary" href="#catalogue">Voir les produits</a><a class="button ghost" href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>
+        <div class="actions"><a class="button primary" href="<?= e(url('products.php')) ?>">Voir tous les produits</a><a class="button ghost" href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>
         <div class="trust"><span>Conseil expert</span><span>Déploiement professionnel</span><span>Support local</span></div>
     </div>
     <div class="hero-art" aria-hidden="true">
@@ -33,36 +26,19 @@ require __DIR__ . '/partials/header.php';
 
 <section class="proof-strip reveal"><div><strong>360°</strong><span>Protection globale</span></div><div><strong>9</strong><span>Catégories IT</span></div><div><strong>24/7</strong><span>Monitoring disponible</span></div><div><strong>Maroc</strong><span>Accompagnement local</span></div></section>
 
-<section class="category-strip" aria-label="Catégories">
-    <?php foreach ($categories as $item): ?>
-        <a href="?category=<?= e($item['slug']) ?>#catalogue"><?= e($item['name']) ?></a>
-    <?php endforeach; ?>
-</section>
-
-<section class="section reveal" id="catalogue">
-    <div class="section-heading"><div><span class="eyebrow">CATALOGUE DISTRITECH</span><h2>Solutions les plus demandées</h2></div><p>Choisissez un produit ou demandez une configuration sur mesure.</p></div>
-    <form class="catalog-filters" method="get" action="<?= e(url('index.php')) ?>#catalogue">
-        <label><span>Rechercher</span><input type="search" name="q" value="<?= e($search) ?>" placeholder="Produit, marque ou SKU"></label>
-        <label><span>Catégorie</span><select name="category"><option value="">Toutes les catégories</option><?php foreach ($categories as $item): ?><option value="<?= e($item['slug']) ?>" <?= $category === $item['slug'] ? 'selected' : '' ?>><?= e($item['name']) ?></option><?php endforeach; ?></select></label>
-        <button class="button primary" type="submit">Filtrer</button>
-    </form>
-    <div class="product-grid">
-        <?php foreach ($products as $product): ?>
-            <article class="product-card">
-                <div class="product-top"><span class="category-pill"><?= e($product['category_name']) ?></span><?php if ((int) $product['featured'] === 1): ?><span class="featured">Populaire</span><?php endif; ?></div>
-                <div class="product-card-visual"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>" loading="lazy"></div>
-                <div class="product-brand"><?= e($product['brand']) ?></div>
-                <h3><a href="<?= e(url('product.php?id=' . $product['id'])) ?>"><?= e($product['name']) ?></a></h3>
-                <p><?= e($product['short_description']) ?></p>
-                <dl><div><dt>Version</dt><dd><?= e($product['version']) ?></dd></div><div><dt>Licence</dt><dd><?= e($product['license_type']) ?></dd></div></dl>
-                <div class="product-footer"><div><small><?= e($product['unit']) ?></small><strong><?= e(money($product['sale_price'] === null ? null : (float) $product['sale_price'])) ?></strong></div><a class="button small" href="<?= e(url('product.php?id=' . $product['id'])) ?>">Voir</a></div>
-            </article>
-        <?php endforeach; ?>
-        <?php if ($products === []): ?><div class="empty-state"><h3>Aucun produit trouvé</h3><p>Modifiez vos filtres ou demandez une solution personnalisée.</p></div><?php endif; ?>
+<section class="section reveal" id="solutions">
+    <div class="section-heading"><div><span class="eyebrow">NOS SOLUTIONS</span><h2>L’essentiel pour votre système d’information.</h2></div><p>Découvrez brièvement chaque expertise, puis consultez les produits correspondants.</p></div>
+    <div class="home-solution-grid">
+        <article><span>01</span><h3>Cybersécurité</h3><p>Antivirus, EDR et protection avancée contre les menaces et ransomwares.</p><div><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Liste des produits</a><a href="#expertise-security">En savoir plus</a></div></article>
+        <article><span>02</span><h3>Firewall & réseau</h3><p>Sécurisez les accès, les sites distants et les échanges de votre entreprise.</p><div><a href="<?= e(url('products.php?category=firewall')) ?>">Liste des produits</a><a href="#expertise-network">En savoir plus</a></div></article>
+        <article><span>03</span><h3>Microsoft & Cloud</h3><p>Microsoft 365, Windows, serveurs et services cloud pour vos équipes.</p><div><a href="<?= e(url('products.php?category=microsoft')) ?>">Liste des produits</a><a href="#services">En savoir plus</a></div></article>
+        <article><span>04</span><h3>Backup & PRA</h3><p>Sauvegarde, réplication et reprise rapide après incident informatique.</p><div><a href="<?= e(url('products.php?category=backup')) ?>">Liste des produits</a><a href="#expertise-backup">En savoir plus</a></div></article>
+        <article><span>05</span><h3>Gestion Sage</h3><p>Solutions de comptabilité, gestion commerciale et pilotage d’entreprise.</p><div><a href="<?= e(url('products.php?category=sage')) ?>">Liste des produits</a><a href="#services">En savoir plus</a></div></article>
+        <article><span>06</span><h3>Services managés</h3><p>Audit, déploiement, supervision, maintenance et support informatique.</p><div><a href="<?= e(url('products.php')) ?>">Liste des produits</a><a href="#services">En savoir plus</a></div></article>
     </div>
 </section>
 
-<section class="dark-section reveal" id="solutions"><span class="eyebrow">SOLUTIONS MÉTIERS</span><h2>Une réponse complète à chaque enjeu.</h2><div class="solution-grid"><article><span class="solution-icon">◇</span><b>Protection ransomware</b><p>EDR, firewall, copie immuable et plan de restauration.</p><a href="<?= e(url('quote.php')) ?>">Découvrir →</a></article><article><span class="solution-icon">⌁</span><b>Interconnexion multi-sites</b><p>VPN, SD-WAN et accès cloud sécurisés.</p><a href="<?= e(url('quote.php')) ?>">Découvrir →</a></article><article><span class="solution-icon">↻</span><b>Continuité d’activité</b><p>Backup, PRA et reprise rapide des workloads.</p><a href="<?= e(url('quote.php')) ?>">Découvrir →</a></article></div></section>
+<section class="dark-section reveal"><span class="eyebrow">SOLUTIONS MÉTIERS</span><h2>Une réponse complète à chaque enjeu.</h2><div class="solution-grid"><article id="expertise-security"><span class="solution-icon">◇</span><b>Protection ransomware</b><p>EDR, firewall, copie immuable et plan de restauration.</p><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Voir les produits →</a></article><article id="expertise-network"><span class="solution-icon">⌁</span><b>Interconnexion multi-sites</b><p>VPN, SD-WAN et accès cloud sécurisés.</p><a href="<?= e(url('products.php?category=firewall')) ?>">Voir les produits →</a></article><article id="expertise-backup"><span class="solution-icon">↻</span><b>Continuité d’activité</b><p>Backup, PRA et reprise rapide des workloads.</p><a href="<?= e(url('products.php?category=backup')) ?>">Voir les produits →</a></article></div></section>
 
 <section class="section reveal" id="services"><div class="section-heading"><div><span class="eyebrow">SERVICES DISTRITECH</span><h2>De l’audit au support continu.</h2></div><p>Une équipe unique pilote vos solutions, du cadrage initial au maintien en conditions opérationnelles.</p></div><div class="service-grid"><article><span>01</span><h3>Audit & conseil</h3><p>Analyse de l’existant et feuille de route adaptée.</p></article><article><span>02</span><h3>Installation</h3><p>Paramétrage, migration et mise en production.</p></article><article><span>03</span><h3>MSP & maintenance</h3><p>Monitoring, support, sécurité et rapports réguliers.</p></article></div></section>
 

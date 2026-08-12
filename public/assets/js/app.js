@@ -25,3 +25,23 @@ document.querySelectorAll('.product-card').forEach((card) => {
     card.style.setProperty('--my', `${event.clientY - box.top}px`);
   });
 });
+
+const catalogPage = document.querySelector('.catalog-page');
+const viewToggles = document.querySelectorAll('.view-toggle');
+if (catalogPage && viewToggles.length) {
+  const setCatalogView = (view) => {
+    const listView = view === 'list';
+    catalogPage.classList.toggle('view-list', listView);
+    viewToggles.forEach((button) => {
+      const active = button.dataset.view === view;
+      button.classList.toggle('active', active);
+      button.setAttribute('aria-pressed', String(active));
+    });
+    try { localStorage.setItem('distritech-catalog-view', view); } catch (error) {}
+  };
+
+  let savedView = 'grid';
+  try { savedView = localStorage.getItem('distritech-catalog-view') || 'grid'; } catch (error) {}
+  setCatalogView(savedView === 'list' ? 'list' : 'grid');
+  viewToggles.forEach((button) => button.addEventListener('click', () => setCatalogView(button.dataset.view)));
+}

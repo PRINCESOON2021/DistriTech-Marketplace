@@ -19,6 +19,6 @@ function admin_installed(PDO $pdo): bool
 function admin_header(string $title): void
 {
     $logged = AdminAuth::loggedIn();
-    ?><!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title><?= e($title) ?> | Admin DISTRITECH</title><link rel="stylesheet" href="../assets/css/admin.css"></head><body><header class="admin-header"><a class="admin-brand" href="index.php">DISTRITECH <small>ADMIN</small></a><?php if ($logged): ?><nav><a href="index.php">Produits</a><a href="product.php">Ajouter</a><a href="../index.php" target="_blank">Voir le site</a><a href="logout.php">Déconnexion</a></nav><?php endif; ?></header><main class="admin-main"><?php
+    ?><!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title><?= e($title) ?> | Admin DISTRITECH</title><link rel="stylesheet" href="../assets/css/admin.css"></head><body><header class="admin-header"><a class="admin-brand" href="index.php">DISTRITECH <small>ADMIN</small></a><?php if ($logged): ?><nav><a href="index.php">Produits</a><a href="product.php">Ajouter</a><a href="catalog-sync.php">Catalogue complet</a><a href="../index.php" target="_blank">Voir le site</a><a href="logout.php">Déconnexion</a></nav><?php endif; ?></header><main class="admin-main"><?php
 }
 function admin_footer(): void { echo '</main></body></html>'; }

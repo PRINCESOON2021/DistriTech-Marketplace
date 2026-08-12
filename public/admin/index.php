@@ -1,0 +1,7 @@
+<?php
+require __DIR__ . '/bootstrap.php'; AdminAuth::requireLogin(); $pdo=admin_db();
+$products=$pdo->query('SELECT p.id,p.sku,p.name,p.brand,p.sale_price,p.quote_only,p.active,c.name category_name FROM products p JOIN categories c ON c.id=p.category_id ORDER BY p.id DESC')->fetchAll();
+admin_header('Produits'); ?>
+<div class="admin-title"><div><span class="kicker">CATALOGUE</span><h1>Produits</h1><p><?= count($products) ?> références enregistrées</p></div><a class="admin-button" href="product.php">+ Ajouter un produit</a></div>
+<?php if(isset($_GET['saved'])): ?><div class="alert success">Produit enregistré.</div><?php endif; ?>
+<div class="table-wrap"><table><thead><tr><th>SKU</th><th>Produit</th><th>Catégorie</th><th>Prix</th><th>État</th><th></th></tr></thead><tbody><?php foreach($products as $p): ?><tr><td><code><?= e($p['sku']) ?></code></td><td><b><?= e($p['name']) ?></b><small><?= e($p['brand']) ?></small></td><td><?= e($p['category_name']) ?></td><td><?= $p['quote_only'] ? 'Sur devis' : e(money((float)$p['sale_price'])) ?></td><td><span class="status <?= $p['active']?'on':'off' ?>"><?= $p['active']?'Actif':'Masqué' ?></span></td><td class="actions"><a href="product.php?id=<?= (int)$p['id'] ?>">Modifier</a><form method="post" action="toggle.php"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= (int)$p['id'] ?>"><button><?= $p['active']?'Masquer':'Activer' ?></button></form></td></tr><?php endforeach; ?></tbody></table></div><?php admin_footer(); ?>

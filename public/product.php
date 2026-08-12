@@ -30,7 +30,7 @@ require __DIR__ . '/partials/header.php';
 ?>
 <section class="breadcrumb"><a href="<?= e(url('index.php')) ?>">Accueil</a><span>/</span><a href="<?= e(url('index.php?category=' . $product['category_slug'] . '#catalogue')) ?>"><?= e($product['category_name']) ?></a><span>/</span><?= e($product['name']) ?></section>
 <section class="product-detail">
-    <div class="product-visual"><span><?= e(strtoupper(substr($product['brand'], 0, 2))) ?></span><small><?= e($product['brand']) ?></small></div>
+    <div class="product-visual product-photo"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>"><small><?= e($product['brand']) ?></small></div>
     <div class="product-info"><span class="category-pill"><?= e($product['category_name']) ?></span><h1><?= e($product['name']) ?></h1><p class="lead"><?= e($product['short_description']) ?></p><div class="price-block"><small>Prix indicatif</small><strong><?= e(money($product['sale_price'] === null ? null : (float) $product['sale_price'])) ?></strong><span><?= e($product['unit']) ?></span></div>
         <dl class="specs"><div><dt>SKU</dt><dd><?= e($product['sku']) ?></dd></div><div><dt>Version</dt><dd><?= e($product['version']) ?></dd></div><div><dt>Utilisateurs</dt><dd><?= e($product['users_label']) ?></dd></div><div><dt>Type de licence</dt><dd><?= e($product['license_type']) ?></dd></div></dl>
         <form class="buy-form" method="post"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><label>Quantité<input type="number" name="quantity" value="1" min="1" max="99"></label><button class="button primary" type="submit">Ajouter au panier</button><a class="button ghost-dark" href="<?= e(url('quote.php?product=' . $product['id'])) ?>">Demander un devis</a></form>

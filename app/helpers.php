@@ -42,3 +42,17 @@ function cart_count(): int
 {
     return array_sum(array_map('intval', $_SESSION['cart'] ?? []));
 }
+
+function product_image(string $sku): string
+{
+    $prefixes = [
+        'KAS-' => 'kaspersky.webp', 'FTG-' => 'fortigate.webp',
+        'M365-' => 'microsoft.webp', 'RDS-' => 'microsoft.webp',
+        'VEEAM-' => 'veeam.webp', 'ACR-' => 'acronis.webp',
+        'AXC-' => 'axcient.webp', 'SAGE' => 'sage.webp',
+    ];
+    foreach ($prefixes as $prefix => $file) {
+        if (str_starts_with(strtoupper($sku), $prefix)) return 'assets/images/products/' . $file;
+    }
+    return 'assets/images/hero-datacenter-real.webp';
+}

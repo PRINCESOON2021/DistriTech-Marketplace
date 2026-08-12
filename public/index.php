@@ -50,7 +50,7 @@ require __DIR__ . '/partials/header.php';
         <?php foreach ($products as $product): ?>
             <article class="product-card">
                 <div class="product-top"><span class="category-pill"><?= e($product['category_name']) ?></span><?php if ((int) $product['featured'] === 1): ?><span class="featured">Populaire</span><?php endif; ?></div>
-                <div class="product-card-visual"><span><?= e(strtoupper(substr($product['brand'], 0, 2))) ?></span><i></i></div>
+                <div class="product-card-visual"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>" loading="lazy"></div>
                 <div class="product-brand"><?= e($product['brand']) ?></div>
                 <h3><a href="<?= e(url('product.php?id=' . $product['id'])) ?>"><?= e($product['name']) ?></a></h3>
                 <p><?= e($product['short_description']) ?></p>

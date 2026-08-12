@@ -1,14 +1,38 @@
 <?php
 
 declare(strict_types=1);
-$config=require __DIR__.'/../config/database.php';
-$dsn=sprintf('mysql:host=%s;port=%s;dbname=%s;charset=%s',$config['host'],$config['port'],$config['database'],$config['charset']);
-try{$pdo=new PDO($dsn,$config['username'],$config['password'],[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE=>PDO::FETCH_ASSOC]);}catch(Throwable $e){exit('Base de données indisponible.');}
-$id=(int)($_GET['product']??$_POST['product_id']??0);$product=null;if($id){$s=$pdo->prepare('SELECT id,name,sku FROM products WHERE id=?');$s->execute([$id]);$product=$s->fetch();}
-$sent=false;$error='';
-if($_SERVER['REQUEST_METHOD']==='POST'){
- $company=trim($_POST['company_name']??'');$contact=trim($_POST['contact_name']??'');$email=trim($_POST['email']??'');$phone=trim($_POST['phone']??'');$qty=max(1,(int)($_POST['quantity']??1));$message=trim($_POST['message']??'');
- if($company===''||$contact===''||!filter_var($email,FILTER_VALIDATE_EMAIL)){$error='Veuillez compléter les champs obligatoires.';}else{$s=$pdo->prepare('INSERT INTO quote_requests(company_name,contact_name,email,phone,product_id,quantity,message) VALUES(?,?,?,?,?,?,?)');$s->execute([$company,$contact,$email,$phone,$id?:null,$qty,$message]);$sent=true;}
+session_start();
+require dirname(__DIR__) . '/app/Database.php';
+require dirname(__DIR__) . '/app/ProductRepository.php';
+require dirname(__DIR__) . '/app/helpers.php';
+
+$repository = new ProductRepository();
+$selectedProduct = isset($_GET['product']) ? $repository->find((int) $_GET['product']) : null;
+$success = false;
+$errors = [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    verify_csrf();
+    $name = trim((string) ($_POST['name'] ?? ''));
+    $company = trim((string) ($_POST['company'] ?? ''));
+    $email = trim((string) ($_POST['email'] ?? ''));
+    $phone = trim((string) ($_POST['phone'] ?? ''));
+    $message = trim((string) ($_POST['message'] ?? ''));
+    if ($name === '') $errors[] = 'Le nom est obligatoire.';
+    if ($company === '') $errors[] = 'La société est obligatoire.';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'L’adresse e-mail est invalide.';
+    if ($errors === []) {
+        $pdo = Database::connection();
+        if ($pdo instanceof PDO) {
+            $statement = $pdo->prepare('INSERT INTO quote_requests (name, company, email, phone, message, cart_json, status) VALUES (:name, :company, :email, :phone, :message, :cart, "new")');
+            $statement->execute(['name'=>$name,'company'=>$company,'email'=>$email,'phone'=>$phone,'message'=>$message,'cart'=>json_encode($_SESSION['cart'] ?? [], JSON_UNESCAPED_UNICODE)]);
+        }
+        $_SESSION['cart'] = [];
+        $success = true;
+    }
 }
-function e($v){return htmlspecialchars((string)$v,ENT_QUOTES,'UTF-8');}
-?><!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Demande de devis — DistriTech</title><style>body{font-family:Arial;margin:0;background:#f5f7fa;color:#142033}.nav{background:#07111f;padding:20px 6%;color:#fff}.nav a{color:#fff;margin-left:20px;text-decoration:none}.box{max-width:700px;margin:55px auto;background:#fff;padding:32px;border-radius:14px;border:1px solid #e1e7ef}label{display:block;margin:15px 0 6px;font-weight:bold}input,textarea{width:100%;padding:12px;border:1px solid #ccd6e2;border-radius:7px;box-sizing:border-box}button{margin-top:22px;padding:13px 20px;background:#0b89ad;color:white;border:0;border-radius:7px;font-weight:bold}.ok{padding:14px;background:#e8f7ef;color:#17683d}.err{padding:14px;background:#fff0f0;color:#a12626}</style></head><body><nav class="nav"><strong>DistriTech</strong><a href="catalog.php">Catalogue</a></nav><main class="box"><h1>Demander un devis</h1><?php if($sent): ?><div class="ok">Votre demande a bien été enregistrée. Notre équipe vous contactera.</div><?php else: ?><?php if($error): ?><div class="err"><?=e($error)?></div><?php endif; ?><p>Produit : <strong><?=e($product['name']??'Solution personnalisée')?></strong></p><form method="post"><input type="hidden" name="product_id" value="<?=e($id)?>"><label>Société *</label><input name="company_name" required><label>Nom & prénom *</label><input name="contact_name" required><label>Email *</label><input type="email" name="email" required><label>Téléphone</label><input name="phone"><label>Quantité</label><input type="number" name="quantity" min="1" value="1"><label>Besoin / informations</label><textarea name="message" rows="6"></textarea><button>Envoyer la demande</button></form><?php endif; ?></main></body></html>
+$pageTitle = 'Demander un devis';
+require __DIR__ . '/partials/header.php';
+?>
+<section class="quote-page"><div class="quote-intro"><span class="eyebrow">DEVIS PROFESSIONNEL</span><h1>Parlez-nous de votre besoin.</h1><p>Nous validons la solution, les licences, l’installation et le niveau de support avant de vous envoyer une proposition.</p><ul><li>Réponse personnalisée</li><li>Architecture adaptée à votre entreprise</li><li>Prix et disponibilité confirmés</li></ul></div>
+<div class="quote-card"><?php if ($success): ?><div class="success-panel"><span>✓</span><h2>Demande enregistrée</h2><p>Votre demande de devis a bien été prise en compte.</p><a class="button primary" href="<?= e(url('index.php')) ?>">Retour à l’accueil</a></div><?php else: ?><h2>Demande de devis</h2><?php foreach ($errors as $error): ?><div class="notice error"><?= e($error) ?></div><?php endforeach; ?><form method="post" class="quote-form"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><div class="two-cols"><label>Nom complet *<input name="name" required value="<?= e($_POST['name'] ?? '') ?>"></label><label>Société *<input name="company" required value="<?= e($_POST['company'] ?? '') ?>"></label></div><div class="two-cols"><label>E-mail professionnel *<input type="email" name="email" required value="<?= e($_POST['email'] ?? '') ?>"></label><label>Téléphone<input name="phone" value="<?= e($_POST['phone'] ?? '') ?>"></label></div><label>Votre besoin<textarea name="message" rows="6" placeholder="Produits, nombre d’utilisateurs, sites, installation, support..."><?= e($_POST['message'] ?? ($selectedProduct ? 'Je souhaite un devis pour ' . $selectedProduct['name'] . '.' : '')) ?></textarea></label><?php if (!empty($_SESSION['cart'])): ?><div class="notice">Votre panier (<?= cart_count() ?> article<?= cart_count() > 1 ? 's' : '' ?>) sera joint à la demande.</div><?php endif; ?><button class="button primary full" type="submit">Envoyer ma demande</button></form><?php endif; ?></div></section>
+<?php require __DIR__ . '/partials/footer.php'; ?>

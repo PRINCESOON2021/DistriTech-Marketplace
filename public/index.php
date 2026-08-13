@@ -5,16 +5,16 @@ session_start();
 require dirname(__DIR__) . '/app/Database.php';
 require dirname(__DIR__) . '/app/helpers.php';
 $brandSlides = [
-    ['brand'=>'Kaspersky','title'=>'Protégez chaque poste contre les cybermenaces.','text'=>'Antivirus, EDR et sécurité avancée pour les entreprises.','image'=>'kaspersky.webp','query'=>'Kaspersky','badge'=>'Protection endpoint','accent'=>'#20b86a','accent2'=>'#087a50'],
-    ['brand'=>'Fortinet','title'=>'Sécurisez et connectez tous vos sites.','text'=>'Firewalls FortiGate, UTP et protection réseau nouvelle génération.','image'=>'fortigate.webp','query'=>'Fortinet','badge'=>'Sécurité réseau','accent'=>'#ee3124','accent2'=>'#9e1913'],
-    ['brand'=>'Microsoft','title'=>'Donnez plus de puissance à vos équipes.','text'=>'Microsoft 365, Windows et solutions cloud pour votre entreprise.','image'=>'microsoft.webp','query'=>'Microsoft','badge'=>'Productivité cloud','accent'=>'#2589e8','accent2'=>'#1257a6'],
-    ['brand'=>'Windows Server','title'=>'Construisez une infrastructure fiable et performante.','text'=>'Windows Server, CAL et accès RDS adaptés à vos besoins.','image'=>'windows-server.webp','query'=>'Windows Server','badge'=>'Infrastructure serveur','accent'=>'#5b6cf0','accent2'=>'#303f9f'],
-    ['brand'=>'Veeam','title'=>'Restaurez vos données quand chaque seconde compte.','text'=>'Sauvegarde, réplication et reprise rapide de vos workloads.','image'=>'veeam.webp','query'=>'Veeam','badge'=>'Backup & réplication','accent'=>'#00b58b','accent2'=>'#087563'],
-    ['brand'=>'Acronis','title'=>'Réunissez sauvegarde et cybersécurité.','text'=>'Protection cloud centralisée des postes, serveurs et données.','image'=>'acronis.webp','query'=>'Acronis','badge'=>'Cyber Protect Cloud','accent'=>'#4466dd','accent2'=>'#243b91'],
-    ['brand'=>'Axcient','title'=>'Assurez la continuité de votre activité.','text'=>'Disaster Recovery et restauration après incident ou ransomware.','image'=>'axcient.webp','query'=>'Axcient','badge'=>'PRA & continuité','accent'=>'#ff6b35','accent2'=>'#a63a16'],
-    ['brand'=>'Sage','title'=>'Pilotez votre entreprise avec précision.','text'=>'Comptabilité, gestion commerciale, facturation et trésorerie.','image'=>'sage.webp','query'=>'Sage','badge'=>'Gestion d’entreprise','accent'=>'#00a376','accent2'=>'#00674d'],
-    ['brand'=>'Sophos','title'=>'Bloquez les attaques avant leur impact.','text'=>'Endpoint, Intercept X et protection synchronisée des entreprises.','image'=>'sophos.webp','query'=>'Sophos','badge'=>'Sécurité synchronisée','accent'=>'#168bd2','accent2'=>'#07578d'],
-    ['brand'=>'Bitdefender','title'=>'Déployez une défense simple et intelligente.','text'=>'GravityZone protège vos utilisateurs, appareils et workloads.','image'=>'bitdefender.webp','query'=>'Bitdefender','badge'=>'GravityZone Business','accent'=>'#d9252a','accent2'=>'#861317'],
+    ['brand'=>'Kaspersky','title'=>'Protégez chaque poste contre les cybermenaces.','text'=>'Antivirus, EDR et sécurité avancée pour les entreprises.','query'=>'Kaspersky','badge'=>'Protection endpoint','accent'=>'#20b86a','accent2'=>'#087a50','icon'=>'◆','nodes'=>['POSTES','EDR','MENACES']],
+    ['brand'=>'Fortinet','title'=>'Sécurisez et connectez tous vos sites.','text'=>'Firewalls FortiGate, UTP et protection réseau nouvelle génération.','query'=>'Fortinet','badge'=>'Sécurité réseau','accent'=>'#ee3124','accent2'=>'#9e1913','icon'=>'⬡','nodes'=>['INTERNET','FORTIGATE','LAN / VPN']],
+    ['brand'=>'Microsoft','title'=>'Donnez plus de puissance à vos équipes.','text'=>'Microsoft 365, Windows et solutions cloud pour votre entreprise.','query'=>'Microsoft','badge'=>'Productivité cloud','accent'=>'#2589e8','accent2'=>'#1257a6','icon'=>'⊞','nodes'=>['UTILISATEURS','MICROSOFT 365','CLOUD']],
+    ['brand'=>'Windows Server','title'=>'Construisez une infrastructure fiable et performante.','text'=>'Windows Server, CAL et accès RDS adaptés à vos besoins.','query'=>'Windows Server','badge'=>'Infrastructure serveur','accent'=>'#5b6cf0','accent2'=>'#303f9f','icon'=>'▤','nodes'=>['CLIENTS','WINDOWS SERVER','RDS / DATA']],
+    ['brand'=>'Veeam','title'=>'Restaurez vos données quand chaque seconde compte.','text'=>'Sauvegarde, réplication et reprise rapide de vos workloads.','query'=>'Veeam','badge'=>'Backup & réplication','accent'=>'#00b58b','accent2'=>'#087563','icon'=>'↻','nodes'=>['WORKLOADS','VEEAM BACKUP','RESTORE']],
+    ['brand'=>'Acronis','title'=>'Réunissez sauvegarde et cybersécurité.','text'=>'Protection cloud centralisée des postes, serveurs et données.','query'=>'Acronis','badge'=>'Cyber Protect Cloud','accent'=>'#4466dd','accent2'=>'#243b91','icon'=>'△','nodes'=>['APPAREILS','CYBER PROTECT','CLOUD']],
+    ['brand'=>'Axcient','title'=>'Assurez la continuité de votre activité.','text'=>'Disaster Recovery et restauration après incident ou ransomware.','query'=>'Axcient','badge'=>'PRA & continuité','accent'=>'#ff6b35','accent2'=>'#a63a16','icon'=>'∞','nodes'=>['PRODUCTION','X360 RECOVER','PRA']],
+    ['brand'=>'Sage','title'=>'Pilotez votre entreprise avec précision.','text'=>'Comptabilité, gestion commerciale, facturation et trésorerie.','query'=>'Sage','badge'=>'Gestion d’entreprise','accent'=>'#00a376','accent2'=>'#00674d','icon'=>'S','nodes'=>['VENTES','SAGE 100','FINANCE']],
+    ['brand'=>'Sophos','title'=>'Bloquez les attaques avant leur impact.','text'=>'Endpoint, Intercept X et protection synchronisée des entreprises.','query'=>'Sophos','badge'=>'Sécurité synchronisée','accent'=>'#168bd2','accent2'=>'#07578d','icon'=>'⬢','nodes'=>['ENDPOINT','SOPHOS CENTRAL','FIREWALL']],
+    ['brand'=>'Bitdefender','title'=>'Déployez une défense simple et intelligente.','text'=>'GravityZone protège vos utilisateurs, appareils et workloads.','query'=>'Bitdefender','badge'=>'GravityZone Business','accent'=>'#d9252a','accent2'=>'#861317','icon'=>'B','nodes'=>['DEVICES','GRAVITYZONE','ANALYTICS']],
 ];
 $pageTitle = 'Solutions IT, cybersécurité et cloud';
 require __DIR__ . '/partials/header.php';
@@ -31,7 +31,13 @@ require __DIR__ . '/partials/header.php';
                     <div class="trust"><span>Conseil expert</span><span>Déploiement professionnel</span><span>Support local</span></div>
                 </div>
                 <div class="hero-art brand-product-art">
-                    <div class="brand-image-stage"><span><?= e(strtoupper($slide['brand'])) ?></span><img src="<?= e(url('assets/images/products/' . $slide['image'])) ?>" alt="Produits <?= e($slide['brand']) ?>" <?= $slideIndex === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>></div>
+                    <div class="brand-image-stage brand-schema" role="img" aria-label="Schéma de la solution <?= e($slide['brand']) ?>">
+                        <div class="brand-wordmark"><i><?= e($slide['icon']) ?></i><strong><?= e($slide['brand']) ?></strong><small><?= e($slide['badge']) ?></small></div>
+                        <div class="schema-flow">
+                            <?php foreach ($slide['nodes'] as $nodeIndex => $node): ?><div class="schema-node<?= $nodeIndex === 1 ? ' schema-core' : '' ?>"><span><?= $nodeIndex === 0 ? '◉' : ($nodeIndex === 1 ? $slide['icon'] : '✓') ?></span><b><?= e($node) ?></b></div><?php if ($nodeIndex < 2): ?><i class="schema-link"><em></em></i><?php endif; ?><?php endforeach; ?>
+                        </div>
+                        <div class="schema-status"><span></span>Architecture sécurisée • Supervision active</div>
+                    </div>
                     <div class="floating-card card-security"><span class="pulse-dot"></span><div><b><?= e($slide['brand']) ?></b><small>Solution professionnelle</small></div></div>
                     <div class="floating-card card-backup"><span>✓</span><div><b><?= e($slide['badge']) ?></b><small>Disponible chez DISTRITECH</small></div></div>
                 </div>

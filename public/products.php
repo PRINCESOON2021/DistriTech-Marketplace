@@ -24,6 +24,20 @@ foreach ($categories as $categoryItem) {
         break;
     }
 }
+$categoryPresentations = [
+    '' => ['label'=>'TOUT LE CATALOGUE','title'=>'Toutes les solutions IT pour votre entreprise.','description'=>'Découvrez notre sélection complète : cybersécurité, firewall, Microsoft, sauvegarde, gestion et services professionnels.','mark'=>'DT','accent'=>'#27c8ee','nodes'=>['CYBERSÉCURITÉ','CLOUD','BACKUP']],
+    'cybersecurite' => ['label'=>'CYBERSÉCURITÉ','title'=>'Protégez vos utilisateurs, postes et données.','description'=>'Antivirus, EDR et protection avancée contre les ransomwares, attaques ciblées et menaces numériques.','mark'=>'◆','accent'=>'#20b86a','nodes'=>['UTILISATEURS','EDR / XDR','MENACES']],
+    'firewall' => ['label'=>'FIREWALL & RÉSEAU','title'=>'Sécurisez chaque connexion de votre entreprise.','description'=>'Pare-feu nouvelle génération, filtrage, VPN et protection des échanges entre Internet, siège et sites distants.','mark'=>'⬡','accent'=>'#ee3124','nodes'=>['INTERNET','FIREWALL','LAN / VPN']],
+    'microsoft' => ['label'=>'MICROSOFT','title'=>'Modernisez le travail et l’infrastructure.','description'=>'Microsoft 365, Windows, Server, CAL et cloud pour améliorer la collaboration, la sécurité et la productivité.','mark'=>'⊞','accent'=>'#2589e8','nodes'=>['ÉQUIPES','MICROSOFT 365','CLOUD']],
+    'backup' => ['label'=>'BACKUP & PRA','title'=>'Sauvegardez maintenant, restaurez rapidement.','description'=>'Protection des workloads, copies hors site, réplication et reprise d’activité après incident ou ransomware.','mark'=>'↻','accent'=>'#00b58b','nodes'=>['DONNÉES','BACKUP','RESTORE']],
+    'sage' => ['label'=>'GESTION SAGE','title'=>'Pilotez votre activité avec des données fiables.','description'=>'Comptabilité, gestion commerciale, ventes, stocks, facturation et trésorerie réunis dans un environnement professionnel.','mark'=>'S','accent'=>'#00a376','nodes'=>['VENTES','SAGE 100','FINANCE']],
+];
+$categoryPresentation = $categoryPresentations[$category] ?? [
+    'label'=>mb_strtoupper($selectedCategoryName),
+    'title'=>'Des solutions professionnelles adaptées à votre activité.',
+    'description'=>'Découvrez les produits, licences et services sélectionnés par DISTRITECH pour cette catégorie.',
+    'mark'=>'IT','accent'=>'#1668e8','nodes'=>['BESOIN','SOLUTION','SUPPORT'],
+];
 $sortOptions = ['featured', 'name_asc', 'brand_asc', 'price_asc', 'price_desc'];
 if (!in_array($sort, $sortOptions, true)) {
     $sort = 'featured';
@@ -43,10 +57,12 @@ $pageTitle = 'Catalogue produits';
 require __DIR__ . '/partials/header.php';
 ?>
 <div class="breadcrumb"><a href="<?= e(url('index.php')) ?>">Accueil</a><span>›</span><span>Produits</span></div>
-<section class="catalog-hero">
-    <div><span class="eyebrow">CATALOGUE DISTRITECH</span><h1>La technologie qui fait avancer votre entreprise.</h1><p>Cybersécurité, cloud, licences, réseau et continuité d’activité réunis dans une sélection professionnelle.</p></div>
-    <div class="catalog-brand-schema" aria-label="Marques de la catégorie <?= e($selectedCategoryName) ?>">
-        <div class="catalog-schema-core"><span>✓</span><b><?= e($selectedCategoryName) ?></b><small>Architecture DISTRITECH</small></div>
+<section class="catalog-hero category-hero" style="--category-accent:<?= e($categoryPresentation['accent']) ?>">
+    <div><span class="eyebrow"><?= e($categoryPresentation['label']) ?> • DISTRITECH</span><h1><?= e($categoryPresentation['title']) ?></h1><p><?= e($categoryPresentation['description']) ?></p><div class="category-benefits"><span>Conseil expert</span><span>Déploiement</span><span>Support local</span></div></div>
+    <div class="catalog-brand-schema" aria-label="Présentation de la catégorie <?= e($selectedCategoryName) ?>">
+        <div class="category-pro-logo"><i><?= e($categoryPresentation['mark']) ?></i><div><b><?= e($categoryPresentation['label']) ?></b><small>Solutions professionnelles</small></div></div>
+        <div class="catalog-schema-core"><span><?= e($categoryPresentation['mark']) ?></span><b><?= e($selectedCategoryName) ?></b><small>Architecture DISTRITECH</small></div>
+        <div class="category-schema-flow"><?php foreach ($categoryPresentation['nodes'] as $nodeIndex => $node): ?><div><i><?= $nodeIndex === 0 ? '◉' : ($nodeIndex === 1 ? $categoryPresentation['mark'] : '✓') ?></i><b><?= e($node) ?></b></div><?php if ($nodeIndex < 2): ?><span><em></em></span><?php endif; ?><?php endforeach; ?></div>
         <div class="catalog-schema-ring">
             <?php foreach ($visibleBrands as $brandName => $brandStyle): ?>
                 <div class="catalog-brand-logo" style="--logo-accent:<?= e($brandStyle['accent']) ?>"><i><?= e($brandStyle['mark']) ?></i><b><?= e($brandName) ?></b></div>
@@ -59,8 +75,8 @@ require __DIR__ . '/partials/header.php';
 <section class="section catalog-page" id="catalogue">
     <div class="section-heading catalog-heading"><div><span class="eyebrow">EXPLORER LES SOLUTIONS</span><h2>Tous nos produits et licences</h2></div><p><?= count($products) ?> solution<?= count($products) > 1 ? 's' : '' ?> disponible<?= count($products) > 1 ? 's' : '' ?></p></div>
     <div class="category-strip catalog-categories" aria-label="Catégories">
-        <a href="<?= e(url('products.php')) ?>">Tous</a>
-        <?php foreach ($categories as $item): ?><a href="<?= e(url('products.php?category=' . $item['slug'])) ?>"><?= e($item['name']) ?></a><?php endforeach; ?>
+        <a class="<?= $category === '' ? 'active' : '' ?>" href="<?= e(url('products.php')) ?>">Tous</a>
+        <?php foreach ($categories as $item): ?><a class="<?= $category === $item['slug'] ? 'active' : '' ?>" href="<?= e(url('products.php?category=' . $item['slug'])) ?>"><?= e($item['name']) ?></a><?php endforeach; ?>
     </div>
     <form class="catalog-filters catalog-toolbar" method="get" action="<?= e(url('products.php')) ?>">
         <label><span>Rechercher</span><input type="search" name="q" value="<?= e($search) ?>" placeholder="Produit, marque ou SKU"></label>

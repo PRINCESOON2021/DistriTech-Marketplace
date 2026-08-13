@@ -1,6 +1,6 @@
 </main>
 <footer class="site-footer">
-    <div><a class="brand brand-logo brand-logo-footer" href="<?= e(url('index.php')) ?>" aria-label="distritech — Accueil"><img src="<?= e(url('assets/images/distritech-logo-minuscule-3d.webp')) ?>" alt="distritech"></a><p>Votre partenaire IT, cybersécurité et cloud.</p></div>
+    <div><a class="brand brand-logo brand-logo-footer" href="<?= e(url('index.php')) ?>" aria-label="DISTRITECH — Accueil"><img src="<?= e(url('assets/images/distritech-logo.webp')) ?>" alt="DISTRITECH"></a><p>Votre partenaire IT, cybersécurité et cloud.</p></div>
     <div><b>Solutions</b><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Cybersécurité</a><a href="<?= e(url('products.php?category=backup')) ?>">Backup & PRA</a><a href="<?= e(url('products.php?category=sage')) ?>">Sage</a></div>
     <div><b>Contact</b><a href="<?= e(url('quote.php')) ?>">Demander un devis</a><span>Maroc</span><small>Photo datacenter : Victor Grigas / Wikimedia Commons, CC BY-SA 3.0</small></div>
 </footer>

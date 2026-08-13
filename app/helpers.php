@@ -59,3 +59,16 @@ function product_image(string $sku): string
     }
     return 'assets/images/hero-datacenter-real.webp';
 }
+
+function product_brand_style(string $brand): array
+{
+    $styles = [
+        'kaspersky' => ['mark'=>'K','accent'=>'#20b86a'], 'fortinet' => ['mark'=>'F','accent'=>'#ee3124'],
+        'microsoft' => ['mark'=>'⊞','accent'=>'#2589e8'], 'veeam' => ['mark'=>'V','accent'=>'#00b58b'],
+        'acronis' => ['mark'=>'△','accent'=>'#4466dd'], 'axcient' => ['mark'=>'∞','accent'=>'#ff6b35'],
+        'sage' => ['mark'=>'S','accent'=>'#00a376'], 'sophos' => ['mark'=>'⬢','accent'=>'#168bd2'],
+        'bitdefender' => ['mark'=>'B','accent'=>'#d9252a'], 'backblaze' => ['mark'=>'B2','accent'=>'#e84b36'],
+        'nakivo' => ['mark'=>'N','accent'=>'#66a52e'], 'distritech' => ['mark'=>'D','accent'=>'#1668e8'],
+    ];
+    return $styles[mb_strtolower(trim($brand))] ?? ['mark'=>strtoupper(mb_substr($brand, 0, 1)), 'accent'=>'#1668e8'];
+}

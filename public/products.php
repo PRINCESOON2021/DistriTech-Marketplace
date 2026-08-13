@@ -56,10 +56,14 @@ require __DIR__ . '/partials/header.php';
         </div>
     <?php endif; ?>
     <div class="product-grid">
-        <?php foreach ($products as $index => $product): ?>
-            <article class="product-card<?= $index === 0 ? ' slide-active' : '' ?>" data-slide-index="<?= $index ?>" data-sku="<?= e($product['sku']) ?>">
+        <?php foreach ($products as $index => $product): $brandStyle = product_brand_style($product['brand']); ?>
+            <article class="product-card<?= $index === 0 ? ' slide-active' : '' ?>" style="--product-accent:<?= e($brandStyle['accent']) ?>" data-slide-index="<?= $index ?>" data-sku="<?= e($product['sku']) ?>">
                 <div class="product-top"><span class="category-pill"><?= e($product['category_name']) ?></span><?php if ((int) $product['featured'] === 1): ?><span class="featured">Populaire</span><?php endif; ?></div>
-                <div class="product-card-visual"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>" loading="lazy"></div>
+                <div class="product-card-visual professional-product-visual">
+                    <div class="product-logo" aria-label="Logo <?= e($product['brand']) ?>"><i><?= e($brandStyle['mark']) ?></i><b><?= e($product['brand']) ?></b></div>
+                    <div class="product-descriptive-image"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="Visuel professionnel de <?= e($product['name']) ?>" loading="lazy"></div>
+                    <small><?= e($product['sku']) ?></small>
+                </div>
                 <div class="product-brand"><?= e($product['brand']) ?></div><h3><a href="<?= e(url('product.php?id=' . $product['id'])) ?>"><?= e($product['name']) ?></a></h3><p><?= e($product['short_description']) ?></p>
                 <dl><div><dt>Version</dt><dd><?= e($product['version']) ?></dd></div><div><dt>Licence</dt><dd><?= e($product['license_type']) ?></dd></div></dl>
                 <div class="product-footer"><div><small><?= e($product['unit']) ?></small><strong><?= e(money($product['sale_price'] === null ? null : (float) $product['sale_price'])) ?></strong></div><a class="button small" href="<?= e(url('product.php?id=' . $product['id'])) ?>">Voir</a></div>

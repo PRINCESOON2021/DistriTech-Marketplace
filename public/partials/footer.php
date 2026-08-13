@@ -4,6 +4,6 @@
     <div><b>Solutions</b><a href="<?= e(url('products.php?category=cybersecurite')) ?>">Cybersécurité</a><a href="<?= e(url('products.php?category=backup')) ?>">Backup & PRA</a><a href="<?= e(url('products.php?category=sage')) ?>">Sage</a></div>
     <div><b>Contact</b><a href="<?= e(url('quote.php')) ?>">Demander un devis</a><span>Maroc</span><small>Photo datacenter : Victor Grigas / Wikimedia Commons, CC BY-SA 3.0</small></div>
 </footer>
-<script src="<?= e(url('assets/js/app.js?v=20260813-6')) ?>"></script>
+<script src="<?= e(url('assets/js/app.js?v=20260813-7')) ?>"></script>
 </body>
 </html>

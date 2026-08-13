@@ -12,7 +12,7 @@
 <body>
 <div class="topbar">Solutions professionnelles pour entreprises au Maroc <a href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>
 <header class="site-header">
-    <a class="brand brand-logo" href="<?= e(url('index.php')) ?>" aria-label="DISTRITECH — Accueil"><img src="<?= e(url('assets/images/distritech-logo-rouge.webp')) ?>" alt="DISTRITECH"></a>
+    <a class="brand brand-logo" href="<?= e(url('index.php')) ?>" aria-label="DISTRITECH — Accueil"><img src="<?= e(url('assets/images/distritech-logo-bleu-rouge.webp')) ?>" alt="DISTRITECH"></a>
     <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
     <nav class="main-nav" aria-label="Navigation principale">
         <a href="<?= e(url('index.php')) ?>">Accueil</a>

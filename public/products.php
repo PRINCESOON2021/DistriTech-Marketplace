@@ -12,6 +12,18 @@ $category = trim((string) ($_GET['category'] ?? ''));
 $sort = trim((string) ($_GET['sort'] ?? 'featured'));
 $products = $repository->all($search, $category);
 $categories = $repository->categories();
+$visibleBrands = [];
+foreach ($products as $visibleProduct) {
+    $visibleBrands[$visibleProduct['brand']] = product_brand_style($visibleProduct['brand']);
+}
+$visibleBrands = array_slice($visibleBrands, 0, 5, true);
+$selectedCategoryName = 'Solutions IT';
+foreach ($categories as $categoryItem) {
+    if ($categoryItem['slug'] === $category) {
+        $selectedCategoryName = $categoryItem['name'];
+        break;
+    }
+}
 $sortOptions = ['featured', 'name_asc', 'brand_asc', 'price_asc', 'price_desc'];
 if (!in_array($sort, $sortOptions, true)) {
     $sort = 'featured';
@@ -33,7 +45,16 @@ require __DIR__ . '/partials/header.php';
 <div class="breadcrumb"><a href="<?= e(url('index.php')) ?>">Accueil</a><span>›</span><span>Produits</span></div>
 <section class="catalog-hero">
     <div><span class="eyebrow">CATALOGUE DISTRITECH</span><h1>La technologie qui fait avancer votre entreprise.</h1><p>Cybersécurité, cloud, licences, réseau et continuité d’activité réunis dans une sélection professionnelle.</p></div>
-    <div class="catalog-orbit" aria-hidden="true"><span>IT</span><i>SECURE</i><b>CLOUD</b></div>
+    <div class="catalog-brand-schema" aria-label="Marques de la catégorie <?= e($selectedCategoryName) ?>">
+        <div class="catalog-schema-core"><span>✓</span><b><?= e($selectedCategoryName) ?></b><small>Architecture DISTRITECH</small></div>
+        <div class="catalog-schema-ring">
+            <?php foreach ($visibleBrands as $brandName => $brandStyle): ?>
+                <div class="catalog-brand-logo" style="--logo-accent:<?= e($brandStyle['accent']) ?>"><i><?= e($brandStyle['mark']) ?></i><b><?= e($brandName) ?></b></div>
+            <?php endforeach; ?>
+            <?php if ($visibleBrands === []): ?><div class="catalog-brand-logo" style="--logo-accent:#27c8ee"><i>IT</i><b>DISTRITECH</b></div><?php endif; ?>
+        </div>
+        <div class="catalog-schema-caption"><span></span>Solutions certifiées • Déploiement professionnel</div>
+    </div>
 </section>
 <section class="section catalog-page" id="catalogue">
     <div class="section-heading catalog-heading"><div><span class="eyebrow">EXPLORER LES SOLUTIONS</span><h2>Tous nos produits et licences</h2></div><p><?= count($products) ?> solution<?= count($products) > 1 ? 's' : '' ?> disponible<?= count($products) > 1 ? 's' : '' ?></p></div>

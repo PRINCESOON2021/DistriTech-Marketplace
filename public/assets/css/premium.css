@@ -117,3 +117,25 @@
 .catalog-categories a.active{background:#e87817;border-color:#e87817}
 .product-card:hover{border-color:#edb37f}
 .product-card:before{background:radial-gradient(circle,rgba(232,120,23,.11),transparent 68%)}
+
+/* Warm graphite replaces the former navy surfaces */
+:root{--navy:#211d1a;--navy2:#2b2521}
+.hero{background:radial-gradient(circle at 72% 32%,rgba(232,120,23,.34) 0,transparent 37%),linear-gradient(120deg,#171411 0%,#211d1a 58%,#6f2e08 100%)}
+.brand-hero-slide{background:radial-gradient(circle at 76% 25%,rgba(245,155,67,.3),transparent 35%),linear-gradient(120deg,#171411 0%,#211d1a 55%,#8f3d0b 100%)}
+.brand-marquee{background:#171411;border-color:#40352e}
+.dark-section{background:#211d1a}
+.solution-grid article{background:#2b2521;border-color:#4b4039}
+.solution-grid article:hover{border-color:#b86b35}
+.solution-icon{background:#44362d;color:#f59b43}
+.site-footer{background:#171411;color:#aaa09a}
+.site-footer:before{background:#40352e}
+.site-footer a{color:#c5bbb4}
+.site-footer p,.site-footer small{color:#908680}
+.product-visual{background:linear-gradient(145deg,#211d1a,#7c390d)}
+.quote-intro{background:#211d1a}
+.mini-visual{background:#211d1a}
+.catalog-schema-core{background:linear-gradient(145deg,#e87817,#6e2c08)}
+.catalog-brand-logo,.category-pro-logo,.category-schema-flow>div{background:rgba(31,27,24,.92)}
+.catalog-schema-caption{background:rgba(23,20,17,.78)}
+.category-hero{background:radial-gradient(circle at 80% 28%,rgba(232,120,23,.36),transparent 32%),radial-gradient(circle at 55% 110%,rgba(245,155,67,.14),transparent 42%),linear-gradient(125deg,#171411,#211d1a 58%,#713007)}
+.catalog-categories a.active{background:#211d1a;border-color:#211d1a}

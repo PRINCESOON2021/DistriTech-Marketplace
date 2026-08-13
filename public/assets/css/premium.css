@@ -139,3 +139,20 @@
 .catalog-schema-caption{background:rgba(23,20,17,.78)}
 .category-hero{background:radial-gradient(circle at 80% 28%,rgba(232,120,23,.36),transparent 32%),radial-gradient(circle at 55% 110%,rgba(245,155,67,.14),transparent 42%),linear-gradient(125deg,#171411,#211d1a 58%,#713007)}
 .catalog-categories a.active{background:#211d1a;border-color:#211d1a}
+
+/* Lighter technical graphite surfaces */
+:root{--navy:#2d2926;--navy2:#38322e}
+.hero,.brand-hero-slide,.category-hero,.dark-section{position:relative;isolation:isolate}
+.hero{background:radial-gradient(circle at 72% 32%,rgba(232,120,23,.3),transparent 38%),linear-gradient(120deg,#272320 0%,#302b27 58%,#82400f 100%)}
+.brand-hero-slide{background:radial-gradient(circle at 76% 25%,rgba(245,155,67,.28),transparent 36%),linear-gradient(120deg,#272320 0%,#302b27 55%,#93450f 100%)}
+.category-hero{background:radial-gradient(circle at 80% 28%,rgba(232,120,23,.3),transparent 34%),linear-gradient(125deg,#272320,#302b27 58%,#7f3a0c)}
+.hero:before,.brand-hero-slide:before,.category-hero:before,.dark-section:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:.32;background-image:linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px),radial-gradient(circle at center,rgba(245,155,67,.6) 0 2px,transparent 3px);background-size:54px 54px,54px 54px,108px 108px;mask-image:linear-gradient(90deg,rgba(0,0,0,.35),#000 48%,rgba(0,0,0,.55))}
+.dark-section{background:linear-gradient(135deg,#2d2926,#38322e)}
+.dark-section:after{content:"";position:absolute;z-index:-1;right:6%;top:15%;width:260px;height:260px;border:1px solid rgba(245,155,67,.18);border-radius:50%;box-shadow:0 0 0 48px rgba(245,155,67,.035),0 0 0 96px rgba(245,155,67,.025)}
+.solution-grid article{background:rgba(66,58,52,.88);border-color:#5b4d44;box-shadow:0 15px 35px rgba(20,16,13,.14)}
+.solution-icon{background:#5a4638}
+.brand-marquee{background:#272320;border-color:#57483e}
+.site-footer{background:#211e1b}
+.site-footer:before{background:#51443b}
+.quote-intro{background:linear-gradient(145deg,#2d2926,#42352c)}
+.product-visual{background:linear-gradient(145deg,#2d2926,#91430d)}

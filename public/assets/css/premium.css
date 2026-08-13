@@ -85,3 +85,6 @@
 
 /* Keep hero product links above every decorative slide layer */
 .brand-hero-slider:before,.brand-hero-slide:before,.brand-product-art:after,.brand-image-stage:before,.brand-image-stage:after{pointer-events:none}.brand-hero-slide .hero-copy{position:relative;z-index:12;pointer-events:auto}.brand-hero-slide .actions{position:relative;z-index:15}.brand-hero-slide .actions a{position:relative;z-index:16;pointer-events:auto}.brand-product-art,.brand-image-stage,.brand-schema,.schema-flow,.schema-status{pointer-events:none}.brand-floating-row{pointer-events:none}.brand-hero-arrow,.brand-hero-dots,.brand-hero-dots button{pointer-events:auto}
+
+/* Calm professional header and footer surfaces */
+.topbar{background:#111c2c;color:#c8d2df;border-bottom:1px solid #253348}.site-header{background:#f4f6f8;border-bottom:1px solid #d8dee6;box-shadow:0 5px 18px rgba(15,28,45,.06);backdrop-filter:none}.main-nav>a,.nav-group>button{color:#1a293b}.mega-menu{background:#f8f9fb;border-color:#d8dee6;box-shadow:0 18px 45px rgba(15,28,45,.12)}.mega-menu a:hover{background:#e9edf2}.site-footer{background:#111c2c;color:#aeb9c8;border-top:1px solid #26364b}.site-footer b{color:#f3f5f7}.site-footer a:hover{color:#fff}.brand-logo-footer{filter:none}

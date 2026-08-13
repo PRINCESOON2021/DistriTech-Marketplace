@@ -87,6 +87,8 @@ if (brandHero) {
 
   const showBrand = (nextIndex) => {
     brandIndex = (nextIndex + slides.length) % slides.length;
+    const activeStyle = getComputedStyle(slides[brandIndex]);
+    brandHero.style.setProperty('--active-brand-accent', activeStyle.getPropertyValue('--brand-accent'));
     slides.forEach((slide, index) => {
       const active = index === brandIndex;
       slide.classList.toggle('active', active);
@@ -111,5 +113,6 @@ if (brandHero) {
   brandHero.addEventListener('mouseleave', restartBrandTimer);
   brandHero.addEventListener('focusin', () => clearInterval(brandTimer));
   brandHero.addEventListener('focusout', restartBrandTimer);
+  showBrand(0);
   restartBrandTimer();
 }

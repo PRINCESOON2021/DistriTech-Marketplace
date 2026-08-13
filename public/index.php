@@ -38,6 +38,10 @@ require __DIR__ . '/partials/header.php';
                         </div>
                         <div class="schema-status"><span></span>Architecture sécurisée • Supervision active</div>
                     </div>
+                    <div class="brand-floating-row">
+                        <div class="floating-card card-security"><span class="pulse-dot"></span><div><b><?= e($slide['brand']) ?></b><small>Solution professionnelle</small></div></div>
+                        <div class="floating-card card-backup"><span>✓</span><div><b><?= e($slide['badge']) ?></b><small>Disponible chez DISTRITECH</small></div></div>
+                    </div>
                 </div>
             </article>
         <?php endforeach; ?>

@@ -47,10 +47,17 @@ require __DIR__ . '/partials/header.php';
         <label><span>Trier par</span><select name="sort"><option value="featured" <?= $sort === 'featured' ? 'selected' : '' ?>>Produits populaires</option><option value="name_asc" <?= $sort === 'name_asc' ? 'selected' : '' ?>>Nom A–Z</option><option value="brand_asc" <?= $sort === 'brand_asc' ? 'selected' : '' ?>>Marque A–Z</option><option value="price_asc" <?= $sort === 'price_asc' ? 'selected' : '' ?>>Prix croissant</option><option value="price_desc" <?= $sort === 'price_desc' ? 'selected' : '' ?>>Prix décroissant</option></select></label>
         <button class="button primary" type="submit">Filtrer</button>
     </form>
-    <div class="catalog-viewbar"><span>Mode d’affichage</span><div role="group" aria-label="Mode d’affichage"><button class="view-toggle active" type="button" data-view="grid" aria-pressed="true" title="Affichage en grille">▦ <span>Grille</span></button><button class="view-toggle" type="button" data-view="list" aria-pressed="false" title="Affichage en liste">☷ <span>Liste</span></button></div></div>
+    <div class="catalog-viewbar"><span>Mode d’affichage</span><div role="group" aria-label="Mode d’affichage"><button class="view-toggle active" type="button" data-view="grid" aria-pressed="true" title="Affichage en grille">▦ <span>Grille</span></button><button class="view-toggle" type="button" data-view="list" aria-pressed="false" title="Affichage en liste">☷ <span>Liste</span></button><button class="view-toggle" type="button" data-view="slide" aria-pressed="false" title="Une référence par slide">▣ <span>Slide</span></button></div></div>
+    <?php if ($products !== []): ?>
+        <div class="product-slider-controls" aria-label="Navigation entre les références">
+            <button type="button" class="slider-arrow slider-prev" aria-label="Référence précédente">←</button>
+            <div><strong class="slider-current">1</strong><span>/ <?= count($products) ?></span><small>Une slide par référence produit</small></div>
+            <button type="button" class="slider-arrow slider-next" aria-label="Référence suivante">→</button>
+        </div>
+    <?php endif; ?>
     <div class="product-grid">
-        <?php foreach ($products as $product): ?>
-            <article class="product-card">
+        <?php foreach ($products as $index => $product): ?>
+            <article class="product-card<?= $index === 0 ? ' slide-active' : '' ?>" data-slide-index="<?= $index ?>" data-sku="<?= e($product['sku']) ?>">
                 <div class="product-top"><span class="category-pill"><?= e($product['category_name']) ?></span><?php if ((int) $product['featured'] === 1): ?><span class="featured">Populaire</span><?php endif; ?></div>
                 <div class="product-card-visual"><img src="<?= e(url(product_image($product['sku']))) ?>" alt="<?= e($product['name']) ?>" loading="lazy"></div>
                 <div class="product-brand"><?= e($product['brand']) ?></div><h3><a href="<?= e(url('product.php?id=' . $product['id'])) ?>"><?= e($product['name']) ?></a></h3><p><?= e($product['short_description']) ?></p>

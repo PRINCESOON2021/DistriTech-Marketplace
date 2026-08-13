@@ -38,21 +38,22 @@ function verify_csrf(): void
     }
 }
 
-function captcha_question(string $scope): string
+function captcha_code(string $scope): string
 {
     if (empty($_SESSION['captcha'][$scope])) {
-        $a = random_int(2, 9);
-        $b = random_int(1, 9);
-        $_SESSION['captcha'][$scope] = ['answer' => $a + $b, 'question' => "$a + $b"];
+        $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+        $code = '';
+        for ($i = 0; $i < 6; $i++) $code .= $alphabet[random_int(0, strlen($alphabet) - 1)];
+        $_SESSION['captcha'][$scope] = ['answer' => $code, 'created_at' => time()];
     }
-    return (string) $_SESSION['captcha'][$scope]['question'];
+    return (string) $_SESSION['captcha'][$scope]['answer'];
 }
 
 function verify_captcha(string $scope, string $answer): bool
 {
     $expected = $_SESSION['captcha'][$scope]['answer'] ?? null;
     unset($_SESSION['captcha'][$scope]);
-    return $expected !== null && hash_equals((string) $expected, trim($answer));
+    return $expected !== null && hash_equals((string) $expected, strtoupper(trim($answer)));
 }
 
 function cart_count(): int

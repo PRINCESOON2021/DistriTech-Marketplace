@@ -75,3 +75,36 @@ if (catalogPage && viewToggles.length) {
     if (event.key === 'ArrowRight') showSlide(slideIndex + 1);
   });
 }
+
+const globalSlider = document.querySelector('.global-product-slider');
+if (globalSlider) {
+  const slides = [...globalSlider.querySelectorAll('.global-product-slide')];
+  const current = globalSlider.querySelector('.global-slider-current');
+  const previous = globalSlider.querySelector('.global-prev');
+  const next = globalSlider.querySelector('.global-next');
+  let index = 0;
+  let timer;
+
+  const displayGlobalSlide = (nextIndex) => {
+    if (!slides.length) return;
+    index = (nextIndex + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      const active = slideIndex === index;
+      slide.classList.toggle('active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
+    if (current) current.textContent = String(index + 1);
+  };
+  const startGlobalSlider = () => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || slides.length < 2) return;
+    clearInterval(timer);
+    timer = setInterval(() => displayGlobalSlide(index + 1), 6000);
+  };
+  previous?.addEventListener('click', () => { displayGlobalSlide(index - 1); startGlobalSlider(); });
+  next?.addEventListener('click', () => { displayGlobalSlide(index + 1); startGlobalSlider(); });
+  globalSlider.addEventListener('mouseenter', () => clearInterval(timer));
+  globalSlider.addEventListener('mouseleave', startGlobalSlider);
+  globalSlider.addEventListener('focusin', () => clearInterval(timer));
+  globalSlider.addEventListener('focusout', startGlobalSlider);
+  startGlobalSlider();
+}

@@ -75,3 +75,41 @@ if (catalogPage && viewToggles.length) {
     if (event.key === 'ArrowRight') showSlide(slideIndex + 1);
   });
 }
+
+const brandHero = document.querySelector('.brand-hero-slider');
+if (brandHero) {
+  const slides = [...brandHero.querySelectorAll('.brand-hero-slide')];
+  const dots = [...brandHero.querySelectorAll('[data-brand-dot]')];
+  const previous = brandHero.querySelector('.brand-hero-prev');
+  const next = brandHero.querySelector('.brand-hero-next');
+  let brandIndex = 0;
+  let brandTimer;
+
+  const showBrand = (nextIndex) => {
+    brandIndex = (nextIndex + slides.length) % slides.length;
+    slides.forEach((slide, index) => {
+      const active = index === brandIndex;
+      slide.classList.toggle('active', active);
+      slide.setAttribute('aria-hidden', String(!active));
+    });
+    dots.forEach((dot, index) => {
+      const active = index === brandIndex;
+      dot.classList.toggle('active', active);
+      dot.setAttribute('aria-pressed', String(active));
+    });
+  };
+  const restartBrandTimer = () => {
+    clearInterval(brandTimer);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && slides.length > 1) {
+      brandTimer = setInterval(() => showBrand(brandIndex + 1), 6500);
+    }
+  };
+  previous?.addEventListener('click', () => { showBrand(brandIndex - 1); restartBrandTimer(); });
+  next?.addEventListener('click', () => { showBrand(brandIndex + 1); restartBrandTimer(); });
+  dots.forEach((dot, index) => dot.addEventListener('click', () => { showBrand(index); restartBrandTimer(); }));
+  brandHero.addEventListener('mouseenter', () => clearInterval(brandTimer));
+  brandHero.addEventListener('mouseleave', restartBrandTimer);
+  brandHero.addEventListener('focusin', () => clearInterval(brandTimer));
+  brandHero.addEventListener('focusout', restartBrandTimer);
+  restartBrandTimer();
+}

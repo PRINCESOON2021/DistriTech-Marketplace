@@ -4,22 +4,43 @@ declare(strict_types=1);
 session_start();
 require dirname(__DIR__) . '/app/Database.php';
 require dirname(__DIR__) . '/app/helpers.php';
+$brandSlides = [
+    ['brand'=>'Kaspersky','title'=>'Protégez chaque poste contre les cybermenaces.','text'=>'Antivirus, EDR et sécurité avancée pour les entreprises.','image'=>'kaspersky.webp','query'=>'Kaspersky','badge'=>'Protection endpoint'],
+    ['brand'=>'Fortinet','title'=>'Sécurisez et connectez tous vos sites.','text'=>'Firewalls FortiGate, UTP et protection réseau nouvelle génération.','image'=>'fortigate.webp','query'=>'Fortinet','badge'=>'Sécurité réseau'],
+    ['brand'=>'Microsoft','title'=>'Donnez plus de puissance à vos équipes.','text'=>'Microsoft 365, Windows et solutions cloud pour votre entreprise.','image'=>'microsoft.webp','query'=>'Microsoft','badge'=>'Productivité cloud'],
+    ['brand'=>'Windows Server','title'=>'Construisez une infrastructure fiable et performante.','text'=>'Windows Server, CAL et accès RDS adaptés à vos besoins.','image'=>'windows-server.webp','query'=>'Windows Server','badge'=>'Infrastructure serveur'],
+    ['brand'=>'Veeam','title'=>'Restaurez vos données quand chaque seconde compte.','text'=>'Sauvegarde, réplication et reprise rapide de vos workloads.','image'=>'veeam.webp','query'=>'Veeam','badge'=>'Backup & réplication'],
+    ['brand'=>'Acronis','title'=>'Réunissez sauvegarde et cybersécurité.','text'=>'Protection cloud centralisée des postes, serveurs et données.','image'=>'acronis.webp','query'=>'Acronis','badge'=>'Cyber Protect Cloud'],
+    ['brand'=>'Axcient','title'=>'Assurez la continuité de votre activité.','text'=>'Disaster Recovery et restauration après incident ou ransomware.','image'=>'axcient.webp','query'=>'Axcient','badge'=>'PRA & continuité'],
+    ['brand'=>'Sage','title'=>'Pilotez votre entreprise avec précision.','text'=>'Comptabilité, gestion commerciale, facturation et trésorerie.','image'=>'sage.webp','query'=>'Sage','badge'=>'Gestion d’entreprise'],
+    ['brand'=>'Sophos','title'=>'Bloquez les attaques avant leur impact.','text'=>'Endpoint, Intercept X et protection synchronisée des entreprises.','image'=>'sophos.webp','query'=>'Sophos','badge'=>'Sécurité synchronisée'],
+    ['brand'=>'Bitdefender','title'=>'Déployez une défense simple et intelligente.','text'=>'GravityZone protège vos utilisateurs, appareils et workloads.','image'=>'bitdefender.webp','query'=>'Bitdefender','badge'=>'GravityZone Business'],
+];
 $pageTitle = 'Solutions IT, cybersécurité et cloud';
 require __DIR__ . '/partials/header.php';
 ?>
-<section class="hero">
-    <div class="hero-copy">
-        <span class="eyebrow">INTÉGRATEUR IT B2B • MAROC</span>
-        <h1>Sécurisez, connectez et développez votre entreprise.</h1>
-        <p>Licences, infrastructures, cybersécurité, cloud et services managés réunis avec un accompagnement de bout en bout.</p>
-        <div class="actions"><a class="button primary" href="<?= e(url('products.php')) ?>">Voir tous les produits</a><a class="button ghost" href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>
-        <div class="trust"><span>Conseil expert</span><span>Déploiement professionnel</span><span>Support local</span></div>
+<section class="hero brand-hero-slider" aria-label="Marques et produits" aria-roledescription="carrousel">
+    <div class="brand-hero-track">
+        <?php foreach ($brandSlides as $slideIndex => $slide): ?>
+            <article class="brand-hero-slide<?= $slideIndex === 0 ? ' active' : '' ?>" data-brand-slide="<?= $slideIndex ?>" aria-hidden="<?= $slideIndex === 0 ? 'false' : 'true' ?>">
+                <div class="hero-copy">
+                    <span class="eyebrow"><?= e(strtoupper($slide['brand'])) ?> • PARTENAIRE DISTRITECH</span>
+                    <h1><?= e($slide['title']) ?></h1>
+                    <p><?= e($slide['text']) ?></p>
+                    <div class="actions"><a class="button primary" href="<?= e(url('products.php?q=' . rawurlencode($slide['query']))) ?>">Voir les produits <?= e($slide['brand']) ?></a><a class="button ghost" href="<?= e(url('quote.php')) ?>">Demander un devis</a></div>
+                    <div class="trust"><span>Conseil expert</span><span>Déploiement professionnel</span><span>Support local</span></div>
+                </div>
+                <div class="hero-art brand-product-art">
+                    <img src="<?= e(url('assets/images/products/' . $slide['image'])) ?>" alt="Produits <?= e($slide['brand']) ?>" <?= $slideIndex === 0 ? 'fetchpriority="high"' : 'loading="lazy"' ?>>
+                    <div class="floating-card card-security"><span class="pulse-dot"></span><div><b><?= e($slide['brand']) ?></b><small>Solution professionnelle</small></div></div>
+                    <div class="floating-card card-backup"><span>✓</span><div><b><?= e($slide['badge']) ?></b><small>Disponible chez DISTRITECH</small></div></div>
+                </div>
+            </article>
+        <?php endforeach; ?>
     </div>
-    <div class="hero-art" aria-hidden="true">
-        <img src="<?= e(url('assets/images/hero-datacenter-real.webp')) ?>" alt="Datacenter professionnel avec rangées de serveurs" fetchpriority="high">
-        <div class="floating-card card-security"><span class="pulse-dot"></span><div><b>Protection active</b><small>Infrastructure surveillée</small></div></div>
-        <div class="floating-card card-backup"><span>↻</span><div><b>Backup vérifié</b><small>Copie hors site sécurisée</small></div></div>
-    </div>
+    <button class="brand-hero-arrow brand-hero-prev" type="button" aria-label="Marque précédente">‹</button>
+    <button class="brand-hero-arrow brand-hero-next" type="button" aria-label="Marque suivante">›</button>
+    <div class="brand-hero-dots" role="tablist" aria-label="Choisir une marque"><?php foreach ($brandSlides as $slideIndex => $slide): ?><button class="<?= $slideIndex === 0 ? 'active' : '' ?>" type="button" data-brand-dot="<?= $slideIndex ?>" aria-label="<?= e($slide['brand']) ?>" aria-pressed="<?= $slideIndex === 0 ? 'true' : 'false' ?>"></button><?php endforeach; ?></div>
 </section>
 
 <section class="brand-marquee" aria-label="Éditeurs et technologies"><div class="marquee-track"><span>MICROSOFT</span><span>FORTINET</span><span>KASPERSKY</span><span>VEEAM</span><span>ACRONIS</span><span>SAGE</span><span>AXCIENT</span><span>BACKBLAZE</span><span aria-hidden="true">MICROSOFT</span><span aria-hidden="true">FORTINET</span><span aria-hidden="true">KASPERSKY</span><span aria-hidden="true">VEEAM</span></div></section>

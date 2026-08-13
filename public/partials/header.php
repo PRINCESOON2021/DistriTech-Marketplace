@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="DISTRITECH accompagne les entreprises avec des solutions IT, cybersécurité, cloud, backup et Sage.">
     <title><?= e($pageTitle) ?> | DISTRITECH</title>
-    <link rel="stylesheet" href="<?= e(url('assets/css/app.css?v=20260813-25')) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/premium.css?v=20260813-25')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/app.css?v=20260813-26')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/premium.css?v=20260813-26')) ?>">
 </head>
 <body>
 <div class="topbar">Solutions professionnelles pour entreprises au Maroc <a href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>
@@ -29,6 +29,7 @@
         </div>
         <a href="<?= e(url('index.php#solutions')) ?>">Solutions</a>
         <a href="<?= e(url('index.php#services')) ?>">Services</a>
+        <a href="<?= e(url(!empty($_SESSION['customer_id']) ? 'account.php' : 'register.php')) ?>"><?= !empty($_SESSION['customer_id']) ? 'Mon compte' : 'Créer un compte' ?></a>
         <a class="nav-quote" href="<?= e(url('quote.php')) ?>">Devis</a>
         <a class="cart-link" href="<?= e(url('cart.php')) ?>">Panier <span><?= cart_count() ?></span></a>
     </nav>

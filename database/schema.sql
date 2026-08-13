@@ -41,6 +41,18 @@ CREATE TABLE quote_requests (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+CREATE TABLE customer_users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(120) NOT NULL,
+    company VARCHAR(160) NULL,
+    email VARCHAR(190) NOT NULL UNIQUE,
+    phone VARCHAR(30) NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    active TINYINT(1) NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
 INSERT INTO categories (name, slug, position) VALUES
 ('Cybersécurité','cybersecurite',1),('Firewall','firewall',2),('Microsoft','microsoft',3),('Backup','backup',4),('Cloud & BaaS','cloud-baas',5),('PRA & Disaster Recovery','pra',6),('Réseau','reseau',7),('Sage','sage',8),('MSP & Maintenance','msp',9);
 

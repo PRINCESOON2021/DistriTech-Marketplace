@@ -38,6 +38,23 @@ function verify_csrf(): void
     }
 }
 
+function captcha_question(string $scope): string
+{
+    if (empty($_SESSION['captcha'][$scope])) {
+        $a = random_int(2, 9);
+        $b = random_int(1, 9);
+        $_SESSION['captcha'][$scope] = ['answer' => $a + $b, 'question' => "$a + $b"];
+    }
+    return (string) $_SESSION['captcha'][$scope]['question'];
+}
+
+function verify_captcha(string $scope, string $answer): bool
+{
+    $expected = $_SESSION['captcha'][$scope]['answer'] ?? null;
+    unset($_SESSION['captcha'][$scope]);
+    return $expected !== null && hash_equals((string) $expected, trim($answer));
+}
+
 function cart_count(): int
 {
     return array_sum(array_map('intval', $_SESSION['cart'] ?? []));

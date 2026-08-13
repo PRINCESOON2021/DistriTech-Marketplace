@@ -21,7 +21,7 @@ require __DIR__ . '/partials/header.php';
         <p>DISTRITECH, Maroc, est responsable du traitement des données personnelles collectées à travers ce site. Toute demande relative à vos données peut être envoyée au moyen du formulaire « Demander un devis ».</p>
 
         <h2>2. Données collectées</h2>
-        <p>Lorsque vous demandez un devis, nous pouvons recueillir votre nom, votre société, votre adresse électronique professionnelle, votre numéro de téléphone, votre message et le contenu de votre panier. Le site utilise également un cookie de session strictement nécessaire au panier, à la sécurité des formulaires et à l’administration.</p>
+        <p>Lorsque vous créez un compte ou demandez un devis, nous pouvons recueillir votre nom, votre société, votre adresse électronique professionnelle, votre numéro de téléphone, votre message et le contenu de votre panier. Le mot de passe du compte est conservé uniquement sous forme hachée. Le site utilise également un cookie de session strictement nécessaire au compte, au panier, au CAPTCHA, à la sécurité des formulaires et à l’administration.</p>
 
         <h2>3. Finalités</h2>
         <ul><li>Répondre aux demandes de devis et de renseignements.</li><li>Préparer et suivre une proposition commerciale.</li><li>Gérer le panier et le fonctionnement technique du site.</li><li>Prévenir les abus, les fraudes et les tentatives d’accès non autorisé.</li><li>Respecter les obligations légales applicables.</li></ul>

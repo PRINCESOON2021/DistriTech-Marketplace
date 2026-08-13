@@ -1,0 +1,7 @@
+<?php
+declare(strict_types=1);
+require dirname(__DIR__).'/app/security.php';secure_session_start();require dirname(__DIR__).'/app/Database.php';require dirname(__DIR__).'/app/CustomerAuth.php';require dirname(__DIR__).'/app/helpers.php';$error='';
+if($_SERVER['REQUEST_METHOD']==='POST'){verify_csrf();if(!verify_captcha('customer-login',(string)($_POST['captcha']??'')))$error='La réponse de sécurité est incorrecte.';elseif(CustomerAuth::login((string)($_POST['email']??''),(string)($_POST['password']??''))){header('Location: account.php');exit;}else{$error='Identifiants incorrects.';}}
+$pageTitle='Connexion client';require __DIR__.'/partials/header.php';?>
+<section class="account-page"><div class="account-card"><span class="eyebrow">ESPACE CLIENT</span><h1>Connexion</h1><?php if($error):?><div class="notice error"><?=e($error)?></div><?php endif;?><form method="post"><input type="hidden" name="csrf" value="<?=e(csrf_token())?>"><label>E-mail<input type="email" name="email" required autocomplete="email"></label><label>Mot de passe<input type="password" name="password" required autocomplete="current-password"></label><label class="captcha-field">Vérification : combien font <?=e(captcha_question('customer-login'))?> ?<input type="number" name="captcha" required autocomplete="off"></label><button class="button primary full">Se connecter</button></form><p class="account-switch">Pas encore de compte ? <a href="<?=e(url('register.php'))?>">Créer un compte</a></p></div></section>
+<?php require __DIR__.'/partials/footer.php';?>

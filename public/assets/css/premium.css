@@ -156,3 +156,16 @@
 .site-footer:before{background:#51443b}
 .quote-intro{background:linear-gradient(145deg,#2d2926,#42352c)}
 .product-visual{background:linear-gradient(145deg,#2d2926,#91430d)}
+
+/* Smooth three-tone gradient based on the approved visual reference */
+.hero,.brand-hero-slide,.category-hero,.dark-section{background:linear-gradient(110deg,#8f2d05 0%,#4d1809 18%,#090909 47%,#101820 70%,#5d8798 100%)}
+.hero:before,.brand-hero-slide:before,.category-hero:before,.dark-section:before{opacity:0;background:none}
+.dark-section:after{display:none}
+.brand-marquee{background:linear-gradient(90deg,#4a1708,#111,#344f5d);border-color:rgba(255,255,255,.12)}
+.site-footer{background:linear-gradient(110deg,#3e150a 0%,#15110f 43%,#253945 100%)}
+.site-footer:before{background:rgba(255,255,255,.16)}
+.solution-grid article{background:rgba(16,16,16,.48);border-color:rgba(255,255,255,.18);backdrop-filter:blur(8px)}
+.solution-icon{background:rgba(232,120,23,.2)}
+.quote-intro{background:linear-gradient(135deg,#5d210b,#111 58%,#344f5d)}
+.product-visual{background:linear-gradient(135deg,#7e2a08,#111 55%,#4b7182)}
+.catalog-schema-core{background:linear-gradient(145deg,#ef7d22,#8f2d05)}

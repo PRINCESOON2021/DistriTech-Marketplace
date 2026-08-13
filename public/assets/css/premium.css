@@ -73,3 +73,7 @@
 .brand-hero-slider,.brand-hero-track{min-height:500px}.brand-hero-slide{padding-top:48px;padding-bottom:58px}.brand-hero-slide .hero-copy h1{font-size:clamp(38px,4.2vw,60px)}.brand-hero-slide .hero-copy>p{font-size:17px}.brand-hero-slide .hero-art{min-height:365px}.brand-schema{padding:25px;gap:22px}.brand-wordmark{padding:13px 16px}.schema-flow{transform:scale(.92)}
 @media(max-width:950px){.brand-hero-slider,.brand-hero-track{min-height:720px}.brand-hero-slide{padding-top:42px;padding-bottom:58px}.brand-hero-slide .hero-art{min-height:300px}}
 @media(max-width:640px){.brand-hero-slider,.brand-hero-track{min-height:690px}.brand-hero-slide{padding-top:34px;padding-bottom:58px}.brand-hero-slide .hero-copy h1{font-size:35px}.brand-hero-slide .hero-art{min-height:260px}}
+
+/* Prevent visual overlap between brand slides */
+.brand-hero-slide{display:none;opacity:1;visibility:visible;transform:none}.brand-hero-slide.active{display:grid;animation:brandSlideEnter .45s ease}.brand-product-art{isolation:isolate}.brand-image-stage{z-index:1}.brand-wordmark,.schema-flow,.schema-status{z-index:3}@keyframes brandSlideEnter{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.brand-hero-slide.active{animation:none}}

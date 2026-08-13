@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="DISTRITECH accompagne les entreprises avec des solutions IT, cybersécurité, cloud, backup et Sage.">
     <title><?= e($pageTitle) ?> | DISTRITECH</title>
-    <link rel="stylesheet" href="<?= e(url('assets/css/app.css?v=20260813-11')) ?>">
-    <link rel="stylesheet" href="<?= e(url('assets/css/premium.css?v=20260813-11')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/app.css?v=20260813-12')) ?>">
+    <link rel="stylesheet" href="<?= e(url('assets/css/premium.css?v=20260813-12')) ?>">
 </head>
 <body>
 <div class="topbar">Solutions professionnelles pour entreprises au Maroc <a href="<?= e(url('quote.php')) ?>">Demander un audit</a></div>

@@ -13,8 +13,11 @@ final class ProductRepository
                     WHERE p.active = 1';
             $params = [];
             if ($search !== '') {
-                $sql .= ' AND (p.name LIKE :search OR p.brand LIKE :search OR p.sku LIKE :search)';
-                $params['search'] = '%' . $search . '%';
+                $sql .= ' AND (p.name LIKE :search_name OR p.brand LIKE :search_brand OR p.sku LIKE :search_sku)';
+                $needle = '%' . $search . '%';
+                $params['search_name'] = $needle;
+                $params['search_brand'] = $needle;
+                $params['search_sku'] = $needle;
             }
             if ($category !== '') {
                 $sql .= ' AND c.slug = :category';

@@ -182,3 +182,16 @@
 .solution-mark{color:#fff!important;text-shadow:0 2px 8px rgba(0,0,0,.18)}
 .solution-mark b{background:var(--card-glow);border-color:color-mix(in srgb,var(--card-glow) 72%,#fff);color:#fff}
 .solution-icon{background:#e87817;color:#fff;border:1px solid rgba(255,255,255,.22);box-shadow:0 8px 20px rgba(0,0,0,.18)}
+
+/* Precise label hierarchy: intense brand tags, colored card symbols */
+.brand-wordmark{background:var(--brand-accent-2)}
+.brand-wordmark>strong,.brand-wordmark>small{color:#fff!important}
+.product-logo{background:color-mix(in srgb,var(--product-accent) 74%,#111)}
+.product-logo b{color:#fff!important}
+.home-solution-grid article:before{background:var(--card-glow);opacity:1}
+.solution-mark{color:#fff!important}
+.solution-mark b{background:color-mix(in srgb,var(--card-glow) 78%,#111);color:#fff!important}
+.solution-grid article:nth-child(1) .solution-icon{background:#e87817}
+.solution-grid article:nth-child(2) .solution-icon{background:#4d7890}
+.solution-grid article:nth-child(3) .solution-icon{background:#20a477}
+.solution-icon{color:#fff!important}

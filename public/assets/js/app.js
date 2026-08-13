@@ -1,4 +1,14 @@
 const toggle = document.querySelector('.menu-toggle');
+
+// Copy deterrence for branded visuals. Forms and normal text remain accessible.
+document.querySelectorAll('img').forEach((image) => {
+  image.setAttribute('draggable', 'false');
+  image.addEventListener('dragstart', (event) => event.preventDefault());
+  image.addEventListener('contextmenu', (event) => event.preventDefault());
+});
+document.querySelectorAll('.brand-product-art, .product-card-visual, .catalog-brand-schema').forEach((visual) => {
+  visual.addEventListener('contextmenu', (event) => event.preventDefault());
+});
 const nav = document.querySelector('.main-nav');
 if (toggle && nav) {
   toggle.addEventListener('click', () => {

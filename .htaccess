@@ -1,0 +1,11 @@
+Options -Indexes
+ServerSignature Off
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^(?:app|config|database)(?:/|$) - [F,L,NC]
+</IfModule>
+
+<FilesMatch "(^\.|\.(?:sql|ini|log|env|bak|dist|md)$)">
+    Require all denied
+</FilesMatch>

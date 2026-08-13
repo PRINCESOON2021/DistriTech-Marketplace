@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
-session_start();
+require dirname(__DIR__, 2) . '/app/security.php';
+secure_session_start();
 require dirname(__DIR__, 2) . '/app/Database.php';
 require dirname(__DIR__, 2) . '/app/AdminAuth.php';
 require dirname(__DIR__, 2) . '/app/helpers.php';

@@ -68,3 +68,8 @@
 /* Official DISTRITECH logo */
 .brand-logo{display:flex;width:250px;height:66px;padding:5px 0;align-items:center}.brand-logo img{display:block;width:100%;height:100%;object-fit:contain;object-position:left center}.brand-logo-footer{width:230px;height:70px;filter:none}
 @media(max-width:640px){.brand-logo{width:205px;height:59px}.brand-logo-footer{width:210px}}
+
+/* Compact homepage brand slider */
+.brand-hero-slider,.brand-hero-track{min-height:500px}.brand-hero-slide{padding-top:48px;padding-bottom:58px}.brand-hero-slide .hero-copy h1{font-size:clamp(38px,4.2vw,60px)}.brand-hero-slide .hero-copy>p{font-size:17px}.brand-hero-slide .hero-art{min-height:365px}.brand-schema{padding:25px;gap:22px}.brand-wordmark{padding:13px 16px}.schema-flow{transform:scale(.92)}
+@media(max-width:950px){.brand-hero-slider,.brand-hero-track{min-height:720px}.brand-hero-slide{padding-top:42px;padding-bottom:58px}.brand-hero-slide .hero-art{min-height:300px}}
+@media(max-width:640px){.brand-hero-slider,.brand-hero-track{min-height:690px}.brand-hero-slide{padding-top:34px;padding-bottom:58px}.brand-hero-slide .hero-copy h1{font-size:35px}.brand-hero-slide .hero-art{min-height:260px}}

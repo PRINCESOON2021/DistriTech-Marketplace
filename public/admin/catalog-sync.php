@@ -45,19 +45,41 @@ $catalog = [
 ];
 
 $added = 0;
+$updated = 0;
+$skipped = 0;
+$preview = [];
+$mode = (string) ($_POST['mode'] ?? '');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  verify_csrf();
+ if (!in_array($mode, ['preview', 'import', 'sync'], true)) { http_response_code(400); exit('Action invalide.'); }
+ $lookup = $pdo->prepare('SELECT id, name, brand, version, users_label, license_type, unit, short_description FROM products WHERE sku = :sku');
+ foreach ($catalog as $p) {
+  $lookup->execute(['sku' => $p[1]]);
+  $existing = $lookup->fetch(PDO::FETCH_ASSOC);
+  $fields = ['name'=>$p[2], 'brand'=>$p[3], 'version'=>$p[4], 'users_label'=>$p[5], 'license_type'=>$p[6], 'unit'=>$p[7], 'short_description'=>$p[9]];
+  $changed = $existing && array_filter($fields, static fn($value, $key) => (string)$value !== (string)$existing[$key], ARRAY_FILTER_USE_BOTH);
+  $preview[] = ['sku'=>$p[1], 'name'=>$p[2], 'action'=>!$existing?'Ajouter':($changed?'Actualiser':'Identique')];
+ }
+}
+if (in_array($mode, ['import', 'sync'], true)) {
  $category = $pdo->prepare('SELECT id FROM categories WHERE slug=:slug');
  $insert = $pdo->prepare('INSERT IGNORE INTO products(category_id,sku,name,brand,version,users_label,license_type,unit,sale_price,quote_only,featured,short_description,active) VALUES(:category_id,:sku,:name,:brand,:version,:users,:license,:unit,:price,:quote_only,0,:description,1)');
  foreach ($catalog as $p) {
   $category->execute(['slug'=>$p[0]]); $categoryId=(int)$category->fetchColumn(); if(!$categoryId) continue;
   $insert->execute(['category_id'=>$categoryId,'sku'=>$p[1],'name'=>$p[2],'brand'=>$p[3],'version'=>$p[4],'users'=>$p[5],'license'=>$p[6],'unit'=>$p[7],'price'=>$p[8],'quote_only'=>$p[8]===null?1:0,'description'=>$p[9]]);
   $added += $insert->rowCount();
+  if ($mode === 'sync' && $insert->rowCount() === 0) {
+   $update = $pdo->prepare('UPDATE products SET category_id=:category_id, name=:name, brand=:brand, version=:version, users_label=:users, license_type=:license, unit=:unit, short_description=:description WHERE sku=:sku');
+   $update->execute(['category_id'=>$categoryId,'sku'=>$p[1],'name'=>$p[2],'brand'=>$p[3],'version'=>$p[4],'users'=>$p[5],'license'=>$p[6],'unit'=>$p[7],'description'=>$p[9]]);
+   $updated += $update->rowCount();
+  }
+  if ($insert->rowCount() === 0) $skipped++;
  }
 }
 $current=(int)$pdo->query('SELECT COUNT(*) FROM products')->fetchColumn();
 admin_header('Catalogue complet'); ?>
 <div class="admin-title"><div><span class="kicker">IMPORT CATALOGUE</span><h1>Produits populaires</h1><p><?= $current ?> références actuellement dans la base</p></div><a href="index.php">← Produits</a></div>
-<?php if($_SERVER['REQUEST_METHOD']==='POST'): ?><div class="alert success"><?= $added ?> nouveaux produits ajoutés. Les références déjà présentes ont été conservées.</div><?php endif; ?>
-<section class="auth-card" style="max-width:700px;margin:0"><h2>Ajouter <?= count($catalog) ?> références préparées</h2><p>Antivirus, firewall, Microsoft, CAL/RDS, backup, cloud, PRA, Sage et services MSP.</p><form method="post"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><button class="admin-button">Importer le catalogue complet</button></form></section>
+<?php if(in_array($mode,['import','sync'],true)): ?><div class="alert success"><?= $added ?> produits ajoutés, <?= $updated ?> mis à jour. Prix, visibilité et mise en avant conservés pour les références existantes.</div><?php endif; ?>
+<?php if($mode==='preview'): ?><section class="auth-card" style="max-width:850px;margin:16px 0"><h2>Prévisualisation</h2><p>Aucune donnée modifiée.</p><table><thead><tr><th>SKU</th><th>Produit</th><th>Action</th></tr></thead><tbody><?php foreach($preview as $item): ?><tr><td><?= e($item['sku']) ?></td><td><?= e($item['name']) ?></td><td><?= e($item['action']) ?></td></tr><?php endforeach; ?></tbody></table></section><?php endif; ?>
+<section class="auth-card" style="max-width:700px;margin:0"><h2>Ajouter <?= count($catalog) ?> références préparées</h2><p>Antivirus, firewall, Microsoft, CAL/RDS, backup, cloud, PRA, Sage et services MSP. La synchronisation actualise les fiches sans écraser les prix ni les réglages commerciaux.</p><form method="post"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><button class="admin-button" name="mode" value="preview">Prévisualiser</button> <button class="admin-button" name="mode" value="import">Importer les nouveaux</button> <button class="admin-button" name="mode" value="sync" onclick="return confirm('Synchroniser les descriptions et références ? Les prix existants seront conservés.')">Synchroniser le catalogue</button></form></section>
 <?php admin_footer(); ?>
